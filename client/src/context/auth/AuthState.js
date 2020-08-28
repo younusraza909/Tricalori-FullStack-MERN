@@ -1,6 +1,6 @@
 import React, { useReducer } from "react";
-import AuthContext from "./authContext";
-import authReducer from "./authreducer";
+import authContext from "./authContext";
+import authReducer from "./authReducer";
 import axios from "axios";
 import setAuthToken from "./../../utils/setAuthToken";
 import {
@@ -53,7 +53,7 @@ const AuthState = (props) => {
 
       loadUser();
     } catch (err) {
-      dispatch({ type: REGISTER_FAIL, payload: err.response.data.msg });
+      dispatch({ type: REGISTER_FAIL, payload: err });
     }
   };
 
@@ -84,7 +84,7 @@ const AuthState = (props) => {
   const clearErrors = () => dispatch({ type: CLEAR_ERRORS });
 
   return (
-    <AuthContext.Provider
+    <authContext.Provider
       value={{
         token: state.token,
         isAuthenticated: state.isAuthenticated,
@@ -99,7 +99,7 @@ const AuthState = (props) => {
       }}
     >
       {props.children}
-    </AuthContext.Provider>
+    </authContext.Provider>
   );
 };
 

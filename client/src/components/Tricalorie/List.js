@@ -1,29 +1,39 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext, useEffect } from "react";
 import CaloriCount from "./CaloriCount";
+import AppContext from "./../../context/app/appContext";
 
 const List = () => {
+  const appContext = useContext(AppContext);
+  const { getItem, items, loading, setCurrent } = appContext;
+
+  useEffect(() => {
+    getItem();
+    //eslint-disable-next-line
+  }, []);
+
   return (
     <Fragment>
       <CaloriCount />
-      <ul id="item-list" class="collection">
-        <li class="collection-item" id="item-0">
-          <strong>Steak Dinner: </strong> <em>1200 Calories</em>
-          <a href="#" class="secondary-content">
-            <i class="edit-item fa fa-pencil"></i>
-          </a>
-        </li>
-        <li class="collection-item" id="item-0">
-          <strong>Cookie: </strong> <em>400 Calories</em>
-          <a href="#" class="secondary-content">
-            <i class="edit-item fa fa-pencil"></i>
-          </a>
-        </li>
-        <li class="collection-item" id="item-0">
-          <strong>Eggs: </strong> <em>300 Calories</em>
-          <a href="#" class="secondary-content">
-            <i class="edit-item fa fa-pencil"></i>
-          </a>
-        </li>
+      <ul id="item-list" className="collection">
+        {loading && <h4 style={{ marginLeft: "40%" }}>Loading....</h4>}
+        {items.length === 0 && loading === false && (
+          <h4 style={{ marginLeft: "33%" }}>Insert Meals To Display</h4>
+        )}
+        {!loading &&
+          items.map((item) => (
+            <li class="collection-item" key={item._id}>
+              <strong>{item.meal}: </strong> <em>{item.calories} Calories</em>
+              <a
+                href="#"
+                className="secondary-content"
+                onClick={() => {
+                  setCurrent(item);
+                }}
+              >
+                <i class="fas fa-pencil-alt"></i>
+              </a>
+            </li>
+          ))}
       </ul>
     </Fragment>
   );

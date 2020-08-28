@@ -32,6 +32,7 @@ export default (state, action) => {
         isAuthenticated: true,
         token: localStorage.getItem("token"),
         loading: false,
+        error: null,
       };
     case REGISTER_FAIL:
     case AUTH_ERROR:

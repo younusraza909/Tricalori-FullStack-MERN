@@ -6,20 +6,32 @@ import Home from "./components/Tricalorie/Home";
 import Login from "./components/authTricalori/Login";
 import Register from "./components/authTricalori/Register";
 import PrivateRoute from "./components/route/PrivateRoue";
+import Alerts from "./components/Tricalorie/Alerts";
+
+import AuthState from "./context/auth/AuthState";
+import AlertState from "./context/alert/AlertState";
+import AppState from "./context/app/AppState";
 
 const App = () => (
-  <Router>
-    <Fragment>
-      <Navbar />
-      <div className="container">
-        <Switch>
-          <Route path="/login" exact component={Login} />
-          <Route path="/register" exact component={Register} />
-          <PrivateRoute path="/" exact component={Home} />
-        </Switch>
-      </div>
-    </Fragment>
-  </Router>
+  <AuthState>
+    <AppState>
+      <AlertState>
+        <Router>
+          <Fragment>
+            <Navbar />
+            <div className="container">
+              <Alerts />
+              <Switch>
+                <Route path="/login" exact component={Login} />
+                <Route path="/register" exact component={Register} />
+                <PrivateRoute path="/" exact component={Home} />
+              </Switch>
+            </div>
+          </Fragment>
+        </Router>
+      </AlertState>
+    </AppState>
+  </AuthState>
 );
 
 export default App;
