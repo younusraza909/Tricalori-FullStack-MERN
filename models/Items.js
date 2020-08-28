@@ -15,7 +15,7 @@ const ItemSchema = mongoose.Schema({
   },
   date: {
     type: Date,
-    require: Date.now,
+    default: Date.now,
   },
 });
 

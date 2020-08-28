@@ -8,9 +8,9 @@ const auth = require("../middleware/auth");
 //@route    GET api/items
 //@dec     TO Get All Items
 //@access  Private
-router.get("/", auth, (req, res) => {
+router.get("/", auth, async (req, res) => {
   try {
-    const items = Items.find({ user: req.user.id }).sort({ date: -1 });
+    const items = await Items.find({ user: req.user.id }).sort({ date: -1 });
     res.json(items);
   } catch (error) {
     console.error(error.message);
@@ -72,7 +72,7 @@ router.delete("/:id", auth, async (req, res) => {
     await Items.findByIdAndRemove(req.params.id);
 
     res.json({ msg: "Item removed" });
-  } catch (error) {
+  } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
   }
