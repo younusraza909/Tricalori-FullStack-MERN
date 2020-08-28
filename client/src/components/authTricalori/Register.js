@@ -1,6 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import AuthContext from "../../context/auth/authContext";
+import AlertContext from "../../context/alert/alertContext";
 
 const Register = (props) => {
+  const alertContext = useContext(AlertContext);
+  const authContext = useContext(AuthContext);
+  const { register, error, clearErrors, isAuthenticated } = authContext;
+  const { setAlert } = alertContext;
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      props.history.push("/");
+      //in order to redirect we have to do this
+    }
+    if (error === "User Already Exist") {
+      setAlert(error, "danger");
+      clearErrors();
+    }
+    //eslint-disable-next-line
+  }, [error, isAuthenticated, props.history]);
+
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -16,7 +35,17 @@ const Register = (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log("Register Done");
+    if (name === "" || email === "" || password === "") {
+      setAlert("Please Enter All Fields", "danger");
+    } else if (password !== password2) {
+      setAlert("Passwords doesnot match", "danger");
+    } else {
+      register({
+        name,
+        email,
+        password,
+      });
+    }
   };
 
   return (

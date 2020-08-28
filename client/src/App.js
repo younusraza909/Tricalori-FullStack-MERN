@@ -5,6 +5,7 @@ import Navbar from "./components/Tricalorie/Navbar";
 import Home from "./components/Tricalorie/Home";
 import Login from "./components/authTricalori/Login";
 import Register from "./components/authTricalori/Register";
+import PrivateRoute from "./components/route/PrivateRoue";
 
 const App = () => (
   <Router>
@@ -14,7 +15,7 @@ const App = () => (
         <Switch>
           <Route path="/login" exact component={Login} />
           <Route path="/register" exact component={Register} />
-          <Route path="/" exact component={Home} />
+          <PrivateRoute path="/" exact component={Home} />
         </Switch>
       </div>
     </Fragment>
