@@ -1,17 +1,24 @@
 import React, { Fragment } from "react";
 import "./App.css";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Navbar from "./components/Tricalorie/Navbar";
-import Form from "./components/Tricalorie/Form";
-import List from "./components/Tricalorie/List";
+import Home from "./components/Tricalorie/Home";
+import Login from "./components/authTricalori/Login";
+import Register from "./components/authTricalori/Register";
 
 const App = () => (
-  <Fragment>
-    <Navbar />
-    <div className="container">
-      <Form />
-      <List />
-    </div>
-  </Fragment>
+  <Router>
+    <Fragment>
+      <Navbar />
+      <div className="container">
+        <Switch>
+          <Route path="/login" exact component={Login} />
+          <Route path="/register" exact component={Register} />
+          <Route path="/" exact component={Home} />
+        </Switch>
+      </div>
+    </Fragment>
+  </Router>
 );
 
 export default App;
