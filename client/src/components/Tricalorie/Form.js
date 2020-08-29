@@ -73,7 +73,6 @@ const Form = () => {
                 <button className=" btn blue darken-3" onClick={AddItemBtn}>
                   <i className="fa fa-plus"></i> Add Meal
                 </button>
-                <button className="btn blue lighten-3 ">Clear All</button>
               </Fragment>
             )}
 
@@ -92,7 +91,14 @@ const Form = () => {
                 >
                   <i className="fa fa-remove"></i> Delete Meal
                 </button>
-                <button className=" btn grey">
+                <button
+                  className=" btn grey"
+                  onClick={() => {
+                    clearCurrent();
+                    setMeal("");
+                    setCalories("");
+                  }}
+                >
                   <i className="fa fa-chevron-circle-left"></i> Back
                 </button>
               </Fragment>

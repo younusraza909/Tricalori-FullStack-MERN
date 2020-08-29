@@ -2,7 +2,6 @@ import React, { useReducer, Children } from "react";
 import AppContext from "./appContext";
 import appReducer from "./appReducer";
 import axios from "axios";
-import setAuthToken from "./../../utils/setAuthToken";
 
 import {
   ADD_ITEM,
@@ -12,7 +11,6 @@ import {
   SET_CURRENT,
   CLEAR_CURRENT,
   ITEM_ERROR,
-  CLEAR_ITEMS,
   SET_LOADING,
 } from "./../types";
 
@@ -22,13 +20,13 @@ const AppState = (props) => {
     error: null,
     loading: false,
     current: null,
+    total: null,
   };
 
   const [state, dispatch] = useReducer(appReducer, initialState);
 
   const getItem = async () => {
     setLoading();
-    setAuthToken(localStorage.getItem("token"));
     try {
       const res = await axios.get("/api/items");
       dispatch({ type: GET_ITEM, payload: res.data });
@@ -39,8 +37,6 @@ const AppState = (props) => {
 
   const addItem = async (item) => {
     setLoading();
-    setAuthToken(localStorage.getItem("token"));
-
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -57,7 +53,6 @@ const AppState = (props) => {
 
   const updateItem = async (item) => {
     setLoading();
-    setAuthToken(localStorage.getItem("token"));
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -74,7 +69,6 @@ const AppState = (props) => {
 
   const deleteItem = async (id) => {
     setLoading();
-    setAuthToken(localStorage.getItem("token"));
     try {
       await axios.delete(`/api/items/${id}`);
       dispatch({ type: DELETE_ITEM, payload: id });

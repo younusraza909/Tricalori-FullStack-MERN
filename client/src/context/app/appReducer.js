@@ -6,7 +6,6 @@ import {
   SET_CURRENT,
   CLEAR_CURRENT,
   ITEM_ERROR,
-  CLEAR_ITEMS,
   SET_LOADING,
 } from "./../types";
 
